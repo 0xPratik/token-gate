@@ -3,24 +3,17 @@ import nextConnect from "next-connect";
 import { Connection, PublicKey } from "@solana/web3.js";
 import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
 
-const handler = nextConnect().post(
+const handler = nextConnect().get(
   async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { wallet } = req.query;
-      const { mint, amount } = req.body;
 
       if (wallet == null || wallet == undefined) {
         return res.status(400).send("No wallet address found");
       }
 
-      if (
-        mint == undefined ||
-        amount == undefined ||
-        mint == null ||
-        amount == null
-      ) {
-        return res.status(400).send("Mint Or Amount Undefined");
-      }
+      const mint = "Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr";
+      const amount = "10";
 
       console.log("Wallet address ", wallet);
       console.log("Mint", mint);

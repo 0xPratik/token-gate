@@ -27,7 +27,13 @@ const Home: NextPage = () => {
   const uint = message.encode("You are verifying your address");
 
   useEffect(() => {
-    console.log("RUN");
+    (async () => {
+      if (verified === true && wallet.connected) {
+        const res = await axios.post(
+          `/api/token/${wallet.publicKey?.toString()}`
+        );
+      }
+    })();
   }, [verified]);
 
   return (
@@ -42,7 +48,6 @@ const Home: NextPage = () => {
               return;
             }
             const res = await wallet.signMessage(uint);
-            console.log("RES<", res);
 
             setVerified(true);
           }}
