@@ -29,9 +29,15 @@ const Home: NextPage = () => {
   useEffect(() => {
     (async () => {
       if (verified === true && wallet.connected) {
-        const res = await axios.post(
+        console.log("RUN");
+        const res = await axios.get(
           `/api/token/${wallet.publicKey?.toString()}`
         );
+        console.log("RES", res.data);
+        const data = res.data;
+        if (data.allowed === true) {
+          setIsAllowed(true);
+        }
       }
     })();
   }, [verified]);
@@ -87,8 +93,7 @@ const Home: NextPage = () => {
                 view this
               </Heading>
               <Text color="whiteAlpha.900">
-                So please get {process.env.NEXT_PUBLIC_TOKEN_AMOUNT} amount of
-                the token of mint :- {process.env.NEXT_PUBLIC_MINT_ADDRESS}
+                So please get amount of the token of mint :-
               </Text>
             </VStack>
           </Box>
