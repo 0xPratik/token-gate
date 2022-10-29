@@ -9,6 +9,7 @@ export const tokenVerify = (
   res: NextApiResponse,
   next: any
 ) => {
+  console.log("Headers", req.headers);
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
@@ -33,12 +34,10 @@ router.get(async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(400).send("No wallet address found");
     }
 
-    const mint = "Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr";
-    const amount = "10";
+    const mint =
+      process.env.MINT || "Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr";
+    const amount = process.env.AMOUNT || "10";
 
-    console.log("Wallet address ", wallet);
-    console.log("Mint", mint);
-    console.log("Amount", amount);
     const userWalletAddress = new PublicKey(wallet);
 
     const endpoint = "https://api.devnet.solana.com";
@@ -67,9 +66,9 @@ router.get(async (req: NextApiRequest, res: NextApiResponse) => {
         return data.parsed.info;
       }
     });
-    const SECRET = process.env.JWT_SECRET || "EqPvA2c1g6";
+    const SECRET = process.env.JWT_SECRET || "";
     const authToken = jwt.sign({ allowed: true }, SECRET, {
-      expiresIn: "1800s",
+      expiresIn: "1800s", // 30 min
     });
     filteredAccounts.forEach((token: any) => {
       if (

@@ -22,9 +22,9 @@ const Home: NextPage = () => {
   const [isAllowed, setIsAllowed] = useState<boolean>(false);
   const [verified, setVerified] = useState<boolean>(false);
 
-  const message = new TextEncoder();
+  const txtEnc = new TextEncoder();
 
-  const uint = message.encode("You are verifying your address");
+  const message = txtEnc.encode("You are verifying your address");
 
   useEffect(() => {
     (async () => {
@@ -50,10 +50,10 @@ const Home: NextPage = () => {
       <HStack h="50px" align="center" justify="center">
         <Button
           onClick={async () => {
-            if (uint === undefined || wallet.signMessage === undefined) {
+            if (message === undefined || wallet.signMessage === undefined) {
               return;
             }
-            const res = await wallet.signMessage(uint);
+            const res = await wallet.signMessage(message);
 
             setVerified(true);
           }}
