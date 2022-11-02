@@ -1,3 +1,5 @@
+import { GetServerSideProps } from "next";
+import axios from 'axios';
 
 
 const Protected = () => {
@@ -12,11 +14,33 @@ const Protected = () => {
   export default Protected;
 
 
-  export async function getServerSideProps() {
-    // Fetch data from external API
-    const res = await fetch(`https://.../data`)
-    const data = await res.json()
+  export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   
-    // Pass data to the page via props
-    return { props: { data } }
-  }
+    const res = await axios.get(
+        `/api/token/${wallet.publicKey?.toString()}`
+      );
+  
+    if (!) {
+      return {
+        redirect: {
+          destination: "/login",
+          permanent: false,
+        },
+      };
+    }
+  
+
+  
+    if (!hasNFT) {
+      return {
+        redirect: {
+          destination: "/login",
+          permanent: false,
+        },
+      };
+    }
+  
+    return {
+      props: {},
+    };
+  };
