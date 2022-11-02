@@ -28,17 +28,21 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     (async () => {
-      if (verified === true && wallet.connected) {
-        console.log("RUN");
-        const res = await axios.get(
-          `/api/token/${wallet.publicKey?.toString()}`
-        );
-        console.log("RES", res.data);
-        const data = res.data;
-        if (data.allowed === true) {
-          setIsAllowed(true);
+        try {
+          if (verified === true && wallet.connected) {
+            console.log("RUN");
+            const res = await axios.get(
+              `/api/token/${wallet.publicKey?.toString()}`
+            );
+            console.log("RES", res.data);
+            const data = res.data;
+            if (data.allowed === true) {
+              setIsAllowed(true);
+            }
+          }
+        } catch (error) {
+          console.log("Something went wrong",error);
         }
-      }
     })();
   }, [verified]);
 
