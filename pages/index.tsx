@@ -35,6 +35,7 @@ const Home: NextPage = () => {
         );
         console.log("RES", res.data);
         const data = res.data;
+        localStorage.setItem("token", data?.token);
         if (data.allowed === true) {
           setIsAllowed(true);
         }
