@@ -68,7 +68,7 @@ router.get(async (req: NextApiRequest, res: NextApiResponse) => {
     });
     const SECRET = process.env.JWT_SECRET || "";
     const authToken = jwt.sign({ allowed: true }, SECRET, {
-      expiresIn: "1800s", // 30 min
+      expiresIn: "300s", // 30 min
     });
     filteredAccounts.forEach((token: any) => {
       if (

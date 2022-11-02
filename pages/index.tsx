@@ -29,14 +29,12 @@ const Home: NextPage = () => {
   useEffect(() => {
     (async () => {
       if (verified === true && wallet.connected) {
-        console.log("RUN");
         const res = await axios.get(
           `/api/token/${wallet.publicKey?.toString()}`
         );
         console.log("RES", res.data);
         const data = res.data;
-        localStorage.setItem("token", data?.token);
-        if (data.allowed === true) {
+        if (data.token !== "") {
           setIsAllowed(true);
         }
       }
